@@ -84,7 +84,7 @@ w_{t+1}
 \]
 
 ## 3.2 ##
-The bottom right states now have values because with the feature based linear approximatino, it uses shared weights across states so updating from any visited state will indirectly update the estimated value of all other states, which would include the states that aren't visited. In the previous MC example, those states that were never visited didn't get updated because there is no connection between the states with the indices. With the feature vectors, the states share structure so weight updates are generalized.
+The bottom right states now have values because with the feature based linear approximation, it uses shared weights across states so updating from any visited state will indirectly update the estimated value of all other states, which would include the states that aren't visited. In the previous MC example, those states that were never visited didn't get updated because there is no connection between the states with the indices. With the feature vectors, the states share structure so weight updates are generalized.
 
 ## 3.3 ##
 Again, because of the states sharing of features, the weights get pulled in multiple directions at once. The -1 state has x position = 4, but so does the +1 state, so the weights have to be balanced to satisfy both of those states being represented, which means the -1 state doesn't get represented perfectly and gets dragged up towards 0. Essentially the learned weights have to fit all the states. 
@@ -106,14 +106,14 @@ I represented the state with  \[
 \text{vel},\;
 \text{angle},\;
 \text{angle\_vel},\;
-\text{pos}^2,\;
-\text{vel}^2,\;
 \text{angle}^2,\;
 \text{angle\_vel}^2,\;
-\text{angle} \cdot \text{angle\_vel}
+\text{angle} \cdot \text{angle\_vel},\;
+\text{pos} \cdot \text{angle},\;
+\text{vel} \cdot \text{angle\_vel},\;
 \big]
 \]
 This adds quadratic and interaction terms to the raw observations.
 
 ## 6.3 ##
-From the 3d plots, we see curved parabolic surfaces with respect to the state variables, so I thought that the Q function has a quadratic dependence on the features. Squaring each variable (pos, vel, angle, angle_vel) as well as adding an interaction between the two most important variables of angle and angular velocity could make the linear model able to approximate the curves.
+From the 3d plots, we see curved parabolic surfaces with respect to the state variables, so I thought that the Q function has a quadratic dependence on the features. Squaring each variable angle and angle_vel as well as adding an interaction between the two most important variables of angle-angular velocity and position-angle could make the linear model able to approximate the curves. 

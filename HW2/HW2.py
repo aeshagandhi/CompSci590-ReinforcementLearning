@@ -30,15 +30,15 @@
 # 
 # Please do not change the imports and answer the written questions in a separate document. If you run into issues installing the libraries please let us know ASAP.
 
-# In[12]:
+# In[2]:
 
 
-get_ipython().system('pip install -q gymnasium')
-get_ipython().system('pip install -q pygame')
-get_ipython().system('pip install -q matplotlib')
+# !pip install -q gymnasium
+# !pip install -q pygame
+# !pip install -q matplotlib
 
 
-# In[14]:
+# In[4]:
 
 
 import copy
@@ -73,7 +73,7 @@ from tools import plot_gridworld_u, plot_greedy_policy, visualize_random, visual
 # 
 # Your task below is to implement this $\phi$ function, as well as the `reset` and `step` functions for us to gather samples of our GridWorld.
 
-# In[15]:
+# In[5]:
 
 
 # [GRADED]
@@ -187,7 +187,7 @@ class FeatureGridWorld(GridWorld):
 
 # Let's take a look at our new 4x3 GridWorld simulator.
 
-# In[16]:
+# In[6]:
 
 
 env = FeatureGridWorld()
@@ -198,7 +198,7 @@ phi_s, env.current_state
 
 # Let's take a few random actions in this new environment.
 
-# In[17]:
+# In[7]:
 
 
 for i in range(5):
@@ -220,7 +220,7 @@ for i in range(5):
 # 
 # In this assignment, since we add a special terminating state (state index 12), the algorithm has to set this terminal state's value to be 0. This is done because there is no reward associated with the terminal state.
 
-# In[18]:
+# In[8]:
 
 
 def discounted_return(ep_rewards: np.ndarray[float], gamma) -> float:
@@ -252,6 +252,8 @@ def rollout(env, pi: np.ndarray[int]) -> tuple[np.ndarray, np.ndarray]:
     # start a new episode
     s, _ = env.reset()          
     terminal = False
+    ep_states.append(s)
+
     while not terminal:
         a = pi[s]   # action chosen by policy at current state
         s, r, terminal, trunc, info = env.step(a)
@@ -300,7 +302,7 @@ def mc_policy_evaluation(env, pi: np.ndarray[int], num_samples = 1000) -> np.nda
 
 # We now estimate the values for the policy from the previous homework. Remember that under this policy the agent takes the action NORTH everywhere except at state 0 where it takes the action EAST. Below we observe a single rollout followed by the MC value estimate.
 
-# In[65]:
+# In[9]:
 
 
 almost_always_up_policy = np.zeros(env.state_size, dtype=int)
@@ -312,7 +314,7 @@ ep_states_str = np.char.mod('%d', ep_states)
 print("State transitions: " + " -> ".join(ep_states_str))
 
 
-# In[66]:
+# In[10]:
 
 
 mc_values_estimate = mc_policy_evaluation(env, almost_always_up_policy, num_samples=5000)
@@ -321,7 +323,7 @@ plot_gridworld_u(mc_values_estimate)
 
 # Similarly, we obtain the MC estimates for the optimal policy.
 
-# In[21]:
+# In[11]:
 
 
 optimal_policy_indices = np.array([0, 3, 0, 3, 0, 0, 0, 0, 1, 1, 1, 0], dtype=int)
@@ -377,7 +379,7 @@ plot_gridworld_u(optimal_mc_values_estimate)
 
 # Now let's implement this algorithm. We've implemented a `featurized_rollout` function for you. It's your job to make use of this function to implement `online_mc`.
 
-# In[22]:
+# In[12]:
 
 
 def featurized_rollout(env, pi) -> tuple[list, list]:
@@ -443,7 +445,7 @@ def online_mc(env: FeatureGridWorld,
     return w
 
 
-# In[23]:
+# In[13]:
 
 
 learnt_w_mc = online_mc(env, optimal_policy, alpha=0.001, n_runs=int(1e5))
@@ -451,7 +453,7 @@ learnt_w_mc = online_mc(env, optimal_policy, alpha=0.001, n_runs=int(1e5))
 learnt_w_mc
 
 
-# In[24]:
+# In[14]:
 
 
 # Calculate our values for each state
@@ -485,7 +487,7 @@ plot_gridworld_u(mc_values)
 # 1. Change your target to this new estimated target
 # 2. Update your $\mathbf{w}$'s immediately after the `step` function, seeing as we don't need to calculate returns at the end of an episode.
 
-# In[28]:
+# In[15]:
 
 
 def online_td(env: FeatureGridWorld,
@@ -514,7 +516,7 @@ def online_td(env: FeatureGridWorld,
 
         # reset if terminal, or move to the next state
         if terminal:
-           env.featurized_reset()[0]
+           obs = env.featurized_reset()[0]
         else:
             obs = next_obs
 
@@ -522,7 +524,7 @@ def online_td(env: FeatureGridWorld,
     return w
 
 
-# In[29]:
+# In[16]:
 
 
 learnt_w_td = online_td(env, optimal_policy, alpha=0.001, n_samples=int(1e5))
@@ -530,7 +532,7 @@ learnt_w_td = online_td(env, optimal_policy, alpha=0.001, n_samples=int(1e5))
 learnt_w_td
 
 
-# In[30]:
+# In[17]:
 
 
 # Calculate our values for each state
@@ -563,7 +565,7 @@ plot_gridworld_u(td_values)
 # 
 # We'll be implementing both an $\epsilon$-greedy policy, as well as the Q-learning algorithm.
 
-# In[41]:
+# In[18]:
 
 
 def eps_greedy(q_values: np.ndarray, epsilon: float = 0.1):
@@ -634,7 +636,7 @@ def q_learning(env: FeatureGridWorld,
 # 
 # Note: yes, the optimal policy is recoverable with this feature space!
 
-# In[70]:
+# In[19]:
 
 
 ### MODIFY PARAMETERS BELOW ###
@@ -649,7 +651,7 @@ learnt_w_ql
 
 # We plot our learnt policy below.
 
-# In[71]:
+# In[20]:
 
 
 plot_greedy_policy(learnt_w_ql, env)
@@ -673,7 +675,7 @@ plot_greedy_policy(learnt_w_ql, env)
 # 
 # Notice how values vary differently with different features. You can intuit the features that would lead to a *linear function* to potentially fit to these curves. We have provided the hyper-parameters which would lead to the agent learning a near optimal policy if you have the appropriate featurization scheme but you are welcome to play around with them. Your code will be evaluated against our hyper-parameters and choice of features. We don't expect you to reproduce these 3D plots as the Q value function you converge upon might vary due to randomzation.
 
-# In[72]:
+# In[25]:
 
 
 unwrapped_cartpole_env = gym.make('CartPole-v1', render_mode='rgb_array')
@@ -698,9 +700,11 @@ class FeaturizedCartPole(gym.Wrapper):
         phi_s = None
 
         ### START CODE HERE ###
-        phi_s = [1, pos, vel, angle, angle_vel,
-             pos**2, vel**2, angle**2, angle_vel**2,
-             angle * angle_vel]
+        # phi_s = [1, pos, vel, angle, angle_vel,
+        #      pos**2, vel**2, angle**2, angle_vel**2,
+        #      angle * angle_vel]
+
+        phi_s = [1, pos, vel, angle, angle_vel, angle**2, angle_vel**2, angle * angle_vel, pos * angle, vel * angle_vel]
 
 
         ### END CODE HERE ###
@@ -718,7 +722,7 @@ class FeaturizedCartPole(gym.Wrapper):
 cartpole_env = FeaturizedCartPole(unwrapped_cartpole_env)
 
 
-# In[73]:
+# In[26]:
 
 
 # You can use these hyperparameters
@@ -728,7 +732,7 @@ cartpole_q_w
 
 # A near optimal policy would balance the pole in an upright position for almost 500 time time steps and has discounted return in between 95-100. We have provided code to both visualize your learned policy's behavior and return the discounted return. The code block terminates upon completion of the simulation. Please remember to install pygame for the visualizations.
 
-# In[74]:
+# In[27]:
 
 
 episode_returns = visualize_q_weight_policy(cartpole_env, cartpole_q_w, total_steps=500)
@@ -762,13 +766,7 @@ episode_returns
 
 
 # !pip install nbconvert
-get_ipython().system('jupyter nbconvert --to python --RegexRemovePreprocessor.patterns="^%" assignment2.ipynb')
-
-
-# In[ ]:
-
-
-
+# get_ipython().system('jupyter nbconvert --to python --RegexRemovePreprocessor.patterns="^%" HW2.ipynb')
 
 
 # In[ ]:
