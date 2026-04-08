@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>assignment2-written.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="section-2">Section 2</h1>
+<h2 id="21">2.1</h2>
+<p>In the optimal policy, states 2 and 3 have values 0.0. This is because they are never visited during the rollouts performed starting from the initial state. MC Policy Evaluation creates estimates of each state's value by averaging the returns observed when the state appears in an episode, so if a state is never encountered its value defaults to 0. Under the optimal policy, the agent's path reaches the +1 terminal state and avoids the risky regions near the -1 terminal state, so the path doesn't pass through states 2 and 3. Thus, these states never get visited during sampling and receive values of 0.0.</p>
+<h2 id="22">2.2</h2>
+<p>The values remain almost the same because introducing the terminal state only changes when the ±1 reward is received, not the overall return structure of the MDP. In the previous MDP, for states $s \in {11,7}$ we had $V(s)=\mathbb{E}[r + \gamma V(s')]=\mathbb{E}[r]$ since termination implied $V(s')=0$, whereas now $V(s)=\mathbb{E}[r + \gamma V(12)]$ and since $V(12)=0$, this either remains $\mathbb{E}[r]$ or becomes $\gamma \mathbb{E}[r]$ if the reward is delivered one step later on the transition to state 12.</p>
+<h1 id="section-3">Section 3</h1>
+<h2 id="31">3.1</h2>
+<p>$$\overline{VE}(w) = \mathbb{E}_\pi \left[ \left( \sum_i \gamma^i R_i - \hat{V}(S,w) \right)^2 \right]$$</p>
+<p>Let $G = \sum_i \gamma^i R_i$ be the Monte Carlo return. Then:</p>
+<p>$$\overline{VE}(w) = \mathbb{E}_\pi \left[ (G - \hat{V}(S,w))^2 \right]$$</p>
+<p>Taking the gradient:</p>
+<p>$$\nabla_w \overline{VE}(w) = \mathbb{E}_\pi \left[ 2 (G - \hat{V}(S,w)) \nabla_w (G - \hat{V}(S,w)) \right]$$</p>
+<p>$$= \mathbb{E}_\pi \left[ 2 (G - \hat{V}(S,w)) (- \nabla_w \hat{V}(S,w)) \right]$$</p>
+<p>Since $\hat{V}(S,w) = w^T \phi(S)$, we have $\nabla_w \hat{V}(S,w) = \phi(S)$. Therefore:</p>
+<p>$$\nabla_w \overline{VE}(w) = \mathbb{E}_\pi \left[ -2 (G - \hat{V}(S,w)) \phi(S) \right]$$</p>
+<p>Applying stochastic gradient descent with a single sample:</p>
+<p>$$w_{t+1} = w_t - \alpha \left[ -2 (G - \hat{V}(S,w_t)) \phi(S) \right]$$</p>
+<p>$$w_{t+1} = w_t + 2\alpha (G - \hat{V}(S,w_t)) \phi(S)$$</p>
+<p>Absorbing the constant 2 into the learning rate:</p>
+<p>$$w_{t+1} = w_t + \alpha (G - \hat{V}(S,w_t)) \phi(S)$$</p>
+<h2 id="32">3.2</h2>
+<p>The bottom-right states now have values because feature-based linear approximation uses shared weights across states, so updating from any visited state indirectly updates the estimated value of all other states including unvisited ones. In the previous index-based MC, states that were never visited stayed at 0 because there was no connection between states, but with feature vectors states share structure so weight updates generalize.</p>
+<h2 id="33">3.3</h2>
+<p>Because states share features, the weights get pulled in multiple directions at once. The -1 state has x-position 4, but so does the +1 state, so the weights must balance representing both, meaning the -1 state doesn't get represented perfectly and gets dragged upward toward 0. Essentially the learned weights have to fit all states simultaneously as a compromise.</p>
+<h2 id="34">3.4</h2>
+<p>If using one-hot vectors for state indices, online_mc is equivalent to the standard tabular Monte Carlo method since each state's update is completely independent — only the single weight corresponding to the current state gets updated, which is exactly like maintaining a separate running average of returns per state with no generalization across states.</p>
+<h1 id="section-6">Section 6</h1>
+<h2 id="61">6.1</h2>
+<p>The 3D plots show that the relationship between Q-values and state variables is nonlinear, but linear function approximation can only represent linear relationships, so the model cannot capture the true Q-function or learn the optimal policy using only the vanilla features.</p>
+<h2 id="62">6.2</h2>
+<p>I represented the state with the feature vector:</p>
+<p>$$\phi_s = [1,\ \text{pos},\ \text{vel},\ \text{angle},\ \text{angle_vel},\ \text{angle}^2,\ \text{angle_vel}^2,\ \text{angle} \cdot \text{angle_vel},\ \text{pos} \cdot \text{angle},\ \text{vel} \cdot \text{angle_vel}]$$</p>
+<p>This adds quadratic and interaction terms to the raw observations.</p>
+<h2 id="63">6.3</h2>
+<p>From the 3D plots, the Q-value surfaces are clearly parabolic with respect to angle and angular velocity, peaking at zero and dropping off symmetrically, which motivated the quadratic features $\text{angle}^2$ and $\text{angle_vel}^2$ as well as the interaction term $\text{angle} \cdot \text{angle_vel}$ to capture their joint dependency. Position and velocity contribute more linearly but interact with the angular features — seen as folds and saddle shapes in the plots — so cross terms like $\text{pos} \cdot \text{angle}$ and $\text{vel} \cdot \text{angle_vel}$ were added to give the linear model enough expressiveness to approximate these nonlinear relationships.</p>
+
+</body>
+</html>
